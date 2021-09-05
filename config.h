@@ -1,4 +1,4 @@
-/* See LICENSE file for copyright and license details.. */
+/* See LICENSE file for copyright and license details. */
 
 /* Constants */
 #define TERMINAL "st"
@@ -229,9 +229,11 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_Right,	tagmon,		{.i = +1 } },
 
 	{ MODKEY,			XK_Page_Up,	shiftview,	{ .i = -1 } },
-	{ MODKEY|ShiftMask,		XK_Page_Up,	shifttag,	{ .i = -1 } },
 	{ MODKEY,			XK_Page_Down,	shiftview,	{ .i = +1 } },
-	{ MODKEY|ShiftMask,		XK_Page_Down,	shifttag,	{ .i = +1 } },
+
+	{MODKEY|ShiftMask,		XK_Page_Up,	spawn,		SHCMD("xbacklight -inc 10")},
+	{MODKEY|ShiftMask,		XK_Page_Down,	spawn,		SHCMD("xbacklight -dec 10")},
+
 	{ MODKEY,			XK_Insert,	spawn,		SHCMD("xdotool type $(grep -v '^#' ~/.local/share/larbs/snippets | dmenu -i -l 50 | cut -d' ' -f1)") },
 
 	{ MODKEY,			XK_F1,		spawn,		SHCMD("groff -mom /usr/local/share/dwm/larbs.mom -Tpdf | zathura -") },
