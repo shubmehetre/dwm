@@ -16,14 +16,14 @@ static int swallowfloating    = 0;        /* 1 means swallow floating windows by
 static int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static int showbar            = 1;        /* 0 means no bar */
 static int topbar             = 1;        /* 0 means bottom bar */
-static char *fonts[]          = { "JetBrains Mono Nerd Font:style=Medium:size=9:antialias=true", "JoyPixels:style=Regular:pixelsize=13:antialias=true:autohint=true"  };
+static char *fonts[]          = { "JetBrains Mono Nerd Font:style=Medium:size=12:antialias=true", "JoyPixels:style=Regular:pixelsize=13:antialias=true:autohint=true"  };
 // static char normbgcolor[]           = "#282a36";
 static char normbgcolor[]           = "#222222"; // status bar color
 static char normbordercolor[]       = "#444444"; // status bar border color
 static char normfgcolor[]           = "#bbbbbb"; // status bar text color
 static char selfgcolor[]            = "#eeeeee"; // rest of the bar text color (numbers and window name text)
 static char selbgcolor[]            = "#33333a"; // color between numbers and status palettle
-static char selbordercolor[]        = "#99aa33"; // current window border
+static char selbordercolor[]        = "#c646ff"; // current window border
 static char *colors[][3] = {
        /*               fg           bg           border   */
        [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
@@ -34,7 +34,7 @@ typedef struct {
 	const char *name;
 	const void *cmd;
 } Sp;
-const char *spcmd1[] = {TERMINAL2, "-n", "spterm", "-g", "110x34", NULL };
+const char *spcmd1[] = {TERMINAL2, "-n", "spterm", "-g", "120x34", NULL };
 const char *spcmd2[] = {TERMINAL2, "-n", "spcalc", "-f", "monospace:size=16", "-g", "50x20", "-e", "bc", "-lq", NULL };
 static Sp scratchpads[] = {
 	/* name          cmd  */
@@ -152,8 +152,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		    XK_0,		    tag,		    {.ui = ~0 } },
 	{ MODKEY,			        XK_minus,	    spawn,		    SHCMD("pamixer --allow-boost -d 5; kill -44 $(pidof dwmblocks)") },
 	{ MODKEY,			        XK_equal,	    spawn,		    SHCMD("pamixer --allow-boost -i 5; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY|ShiftMask,		    XK_minus,	    spawn,		    SHCMD("xbacklight -dec 10") },
-	{ MODKEY|ShiftMask,		    XK_equal,	    spawn,		    SHCMD("xbacklight -inc 10") },
+	{ MODKEY|ShiftMask,		    XK_minus,	    spawn,		    SHCMD("~/.local/bin/adjust_brightness.sh dec") },
+	{ MODKEY|ShiftMask,		    XK_equal,	    spawn,		    SHCMD("~/.local/bin/adjust_brightness.sh inc") },
 	{ MODKEY,			        XK_BackSpace,	spawn,		    SHCMD("sysact") },
 	{ MODKEY|ShiftMask,		    XK_BackSpace,	spawn,		    SHCMD("sudo -A shutdown -h now") },
 
@@ -173,6 +173,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,	        XK_y,		    setlayout,	    {.v = &layouts[3]} }, /* dwindle */
 	{ MODKEY,			        XK_u,		    setlayout,	    {.v = &layouts[4]} }, /* deck */
 	{ MODKEY|ShiftMask,	        XK_u,		    setlayout,	    {.v = &layouts[5]} }, /* monocle */
+	{ MODKEY|ShiftMask,	        XK_v,			spawn,		    SHCMD("virt-manager") },
 	{ MODKEY,			        XK_i,		    setlayout,	    {.v = &layouts[6]} }, /* centeredmaster */
 	{ MODKEY|ShiftMask,	        XK_i,		    setlayout,	    {.v = &layouts[7]} }, /* centeredfloatingmaster */
 	{ MODKEY,			        XK_o,		    incnmaster,         {.i = +1 } },
@@ -212,13 +213,13 @@ static Key keys[] = {
 	/* { MODKEY|ShiftMas        k,		XK_z,	spawn,		    SHCMD("") }, */
 	{ MODKEY,			        XK_x,		    incrgaps,	    {.i = -3 } },
 	/* { MODKEY|ShiftMas        k,		XK_x,	spawn,		    SHCMD("") }, */
-	/* { MODKEY,		   	    XK_c,		    spawn,		    SHCMD("") }, */
-	{ MODKEY|ShiftMask,	   	    XK_c,		    spawn,		    SHCMD("/home/doom/zzz/softwares/idea-IC-212.5284.40/bin/idea.sh") },
+	/*{ MODKEY,		   	    XK_c,		    spawn,		    SHCMD("") }, */
+	{ MODKEY|ShiftMask,	   	    XK_c,		    spawn,		    SHCMD("/home/doom/zzz/software/calibre/calibre") },
 	/* V is automaticall        y bound above in STACKKEYS */
 	{ MODKEY,			        XK_b,		    togglebar,	    {0} },
 	{ MODKEY|ShiftMask,	        XK_b,		    spawn,		    SHCMD("wal-dl") },
 	{ MODKEY,			        XK_n,		    spawn,		    SHCMD(TERMINAL " -e nvim -c VimwikiIndex") },
-	{ MODKEY|ShiftMask,	        XK_n,		    spawn,		    SHCMD(TERMINAL2 " -e newsboat -r; pkill -RTMIN+6 dwmblocks") },
+	{ MODKEY|ShiftMask,	        XK_n,		    spawn,		    SHCMD(TERMINAL " -e newsboat ; pkill -RTMIN+6 dwmblocks") },
 	{ MODKEY,			        XK_m,		    spawn,		    SHCMD(TERMINAL " -e ncmpcpp") },
 	{ MODKEY|ShiftMask,	        XK_m,		    spawn,		    SHCMD("pamixer -t; kill -44 $(pidof dwmblocks)") },
 	{ MODKEY,			        XK_comma,	    spawn,		    SHCMD("mpc prev") },
