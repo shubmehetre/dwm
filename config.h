@@ -152,8 +152,9 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		    XK_0,		    tag,		    {.ui = ~0 } },
 	{ MODKEY,			        XK_minus,	    spawn,		    SHCMD("pamixer --allow-boost -d 5; kill -44 $(pidof dwmblocks)") },
 	{ MODKEY,			        XK_equal,	    spawn,		    SHCMD("pamixer --allow-boost -i 5; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY|ShiftMask,		    XK_minus,	    spawn,		    SHCMD("~/.local/bin/adjust_brightness.sh dec") },
-	{ MODKEY|ShiftMask,		    XK_equal,	    spawn,		    SHCMD("~/.local/bin/adjust_brightness.sh inc") },
+	/*{ MODKEY|ShiftMask,		    XK_minus,	    spawn,		    SHCMD("~/.local/bin/adjust_brightness.sh dec") },*/
+	{ MODKEY|ShiftMask,		    XK_minus,	    spawn,		    SHCMD("xrandr --output HDMI-2 --brightness $(echo \"$(xrandr --verbose | grep -i brightness | head -n 1 | awk '{print $2}') - 0.1\" | bc)") },
+	{ MODKEY|ShiftMask,		    XK_equal,	    spawn,		    SHCMD("xrandr --output HDMI-2 --brightness $(echo \"$(xrandr --verbose | grep -i brightness | head -n 1 | awk '{print $2}') + 0.1\" | bc)") },
 	{ MODKEY,			        XK_BackSpace,	spawn,		    SHCMD("sysact") },
 	{ MODKEY|ShiftMask,		    XK_BackSpace,	spawn,		    SHCMD("sudo -A shutdown -h now") },
 
